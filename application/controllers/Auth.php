@@ -30,10 +30,19 @@ Class Auth extends CI_Controller {
                 if($result['rol'] ==1){
                     $datos = array(
                         'id'=> $result['id_preregistro'],
-                        'rol'=> $result['tipo']
+                        'rol'=> $result['rol']
                 );
-                }
+                $this->session->set_userdata($datos);
                 redirect('welcome/listar');
+                }else{
+                    $datos = array(
+                        'id'=> $result['id_preregistro'],
+                        'rol'=> $result['rol']
+                );
+                $this->session->set_userdata($datos);
+                redirect("welcome/userindex");
+                }
+                
             }
         }else{
             echo 'El usuario no existe';
@@ -45,9 +54,13 @@ Class Auth extends CI_Controller {
         return $this->Auth_model->verificaExistencia($dato);
     }
 
-    public function salir()
+    public function logout()
     {
-        
+        $datos=array(
+            'id','rol'
+        );
+        $this->session->unset_userdata($datos);
+        redirect('Auth');
     }
 
 }

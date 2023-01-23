@@ -1,0 +1,1 @@
+Bienvenido usuario <?php echo $this->session->userdata('id');

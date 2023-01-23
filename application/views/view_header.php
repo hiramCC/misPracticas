@@ -25,8 +25,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <ul class="nav navbar-nav">
       <li><a href="<?php echo base_url() ?>">Home</a></li>
       <li><a href="<?php echo base_url('welcome/listar') ?>">Listar</a></li>
-      <li><a href="#">Page 2</a></li>
-      <li><a href="#">Page 3</a></li>
+      <li><a href="<?php echo base_url('Auth/logout');?>">Log out</a></li>
+      <li></li>
     </ul>
   </div>
 </nav>

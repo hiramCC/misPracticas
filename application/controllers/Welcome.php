@@ -18,6 +18,11 @@ class Welcome extends CI_Controller {
 		$this->load->view('Welcome_message');
 		$this->load->view('view_footer');
 	}
+	public function userindex(){
+		$this->load->view('view_header');
+		$this->load->view('view_usuario');
+		$this->load->view('view_footer');
+	}
 
 	public function listar()
 	{

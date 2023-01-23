@@ -2,7 +2,7 @@
     <div class="container">
         <?php #print_r($preregistro); ?>
         
-        <h2>Actualizar Datos de Participante</h2>
+        <h2>Actualizar Datos de Participante  <?php echo $this->session->userdata('id');?></h2>
         <form action="<?php echo base_url('Welcome/update') ?>" method="post">
 		<div class="form-group">
                 <label for="nombre">Nombre:</label>
@@ -26,8 +26,16 @@
             </div>
             <div>
                 <label>Selecciona el rol  <select name="rol" id="rol">
-                <option value="user">Usuario</option>
-                <option value="admin">Administrador</option>
+                <?php
+                if($preregistro[0]['rol']==1){
+                    echo "<option selected>Administrador</option>";
+                    echo "<option >Usuario</option>";
+                }
+                else{
+                    echo "<option>Administrador</option>";
+                    echo "<option selected>Usuario</option>";
+                }
+                ?>
                 </select>
                 </label>
             </div>
