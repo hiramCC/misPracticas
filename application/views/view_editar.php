@@ -24,6 +24,13 @@
                 <label for="pwd">Password:</label>
                 <input type="password" class="form-control" id="pwd"  name="pwd" value="<?php echo $preregistro[0]['contrasenia']; ?>">
             </div>
+            <div>
+                <label>Selecciona el rol  <select name="rol" id="rol">
+                <option value="user">Usuario</option>
+                <option value="admin">Administrador</option>
+                </select>
+                </label>
+            </div>
             <input type="hidden" name="id_preregistro" value="<?php echo $preregistro[0]['id_preregistro']; ?>">
             <button type="submit" class="btn btn-success">Guardar</button>
         </form>

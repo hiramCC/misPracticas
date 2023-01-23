@@ -32,13 +32,18 @@ class Welcome extends CI_Controller {
 	public function registrar(){
 		#print_r($_POST);
 		#var_dump($_POST);
-
+		if($this->input->post('rol')=='admin'){
+			$rol=1;
+		}else{
+			$rol=2;
+		}
 		$datos = array(
 			'nombre' => trim(mb_strtoupper($this->input->post('nombre'))),
 			'apaterno' => trim(mb_strtoupper($this->input->post('apaterno'))),
 			'amaterno' => trim(mb_strtoupper($this->input->post('amaterno'))),
 			'correo' => trim($this->input->post('email')),
-			'contrasenia' => trim(sha1($this->input->post('pwd')))
+			'contrasenia' => trim(sha1($this->input->post('pwd'))),
+			'rol' => intval($rol)
 			);
 
 		
@@ -69,13 +74,18 @@ class Welcome extends CI_Controller {
 
 	public function update()
 	{
-
+		if($this->input->post('rol')=='admin'){
+			$rol=1;
+		}else{
+			$rol=2;
+		}
 		$datos = array(
 			'nombre' => trim(mb_strtoupper($this->input->post('nombre'))),
 			'apaterno' => trim(mb_strtoupper($this->input->post('apaterno'))),
 			'amaterno' => trim(mb_strtoupper($this->input->post('amaterno'))),
 			'correo' => trim($this->input->post('email')),
-			'contrasenia' => trim($this->input->post('pwd'))
+			'contrasenia' => trim($this->input->post('pwd')),
+			'rol' => intval($rol)
 			);
 
 			$id = $this->input->post('id_preregistro');
@@ -90,8 +100,13 @@ class Welcome extends CI_Controller {
 
 	public function delete($id)
 	{
-		$this->Welcome_model->delete($id);
-		redirect('Welcome/listar');
+		$result = $this->Welcome_model->delete($id);
+		if($result == TRUE){
+			redirect('Welcome/listar');
+		}else{
+			echo 'Contacta a soporte';
+		}
+		
 		
 	}
 
