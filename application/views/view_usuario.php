@@ -1,3 +1,3 @@
 <?php
-echo 'hola ya entraste en mi'
+echo 'Bienvenido '.$this->session->userdata('nombre');
 ?>
