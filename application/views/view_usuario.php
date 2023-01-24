@@ -1,1 +1,3 @@
-Bienvenido usuario <?php echo $this->session->userdata('id');
+<?php
+echo 'hola ya entraste en mi'
+?>

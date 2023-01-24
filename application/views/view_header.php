@@ -14,19 +14,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </head>
 
-
-
-<body>
-<nav class="navbar navbar-primary">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Crud</a>
+      <a class="navbar-brand" href="#">Mi Sistema</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="<?php echo base_url() ?>">Home</a></li>
-      <li><a href="<?php echo base_url('welcome/listar') ?>">Listar</a></li>
-      <li><a href="<?php echo base_url('Auth/logout');?>">Log out</a></li>
-      <li></li>
+      <li class="active"><a href="<?php echo base_url('Welcome/index')?>">Home</a></li>
+      <?php if ($this->session->userdata('rol') == 1){?>
+      <li><a href="<?php echo base_url('Welcome/listar')?>">configuracion</a></li>
+      <?php }else if ($this->session->userdata('rol') == 2){?>
+        <?php }?>
+      <li><a href="#">Page 2</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span><?php echo $this->session->userdata('nombre')?></a></li>
+      <li><a href="<?php echo base_url('Auth/salir')?>"><span class="glyphicon glyphicon-log-in"></span> logout</a></li>
     </ul>
   </div>
 </nav>

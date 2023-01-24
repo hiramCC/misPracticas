@@ -9,11 +9,11 @@ class Welcome_model extends CI_Model {
 
     private $table  = 'preregistro' ;
 
-    public function insert($data)
-    {
-        $isOkey = $this->db->insert($this->table, $data);
-        return ($isOkey == true) ? true : false;
-    }
+    // public function insert($data)
+    // {
+    //     $isOkey = $this->db->insert($this->table, $data);
+    //     return ($isOkey == true) ? true : false;
+    // }
 
     public function readData()
     {
@@ -37,14 +37,6 @@ class Welcome_model extends CI_Model {
     public function delete($id){
         $this->db->delete($this->table, array('id_preregistro' => $id));
     }
+    
 
-    function verificaCorreo($email)
-    {
-        $rstQuery = $this->db->get_where($this->table, array('email' => $email));
-        if($rstQuery->num_rows() > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }
