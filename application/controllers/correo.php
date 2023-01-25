@@ -6,10 +6,10 @@
         } 
 
         public function index(){
-            $this->email->to('blackzyzz1024@gmail.com');
-            $this->email->from('blackzyzz1024@gmail.com','gg');
-            $this->email->subject('Prueba');
-            $this->email->message('ahuevo si se envio.');
+            $this->email->from('je863048@gmail.com','Trabajo de Residencia');
+            $this->email->to('je863048@gmail.com');
+            $this->email->subject('Prueba de correo');
+            $this->email->message('Prueba envio de correo.');
             if($this->email->send()){
                 echo "Correo enviado correctamente";
             }else{
@@ -19,3 +19,4 @@
 
     }
 ?>
+

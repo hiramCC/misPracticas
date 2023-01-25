@@ -8,9 +8,7 @@ class Auth extends CI_Controller{
     }
 
     public function index(){
-        
         $this->load->view('view_login');
-        
 
     }
 
@@ -47,7 +45,7 @@ class Auth extends CI_Controller{
                     $this->session->set_flashdata('success', 'Bienvenido'.' &nbsp'.$params['nombre']);
                     redirect('registro');
                     
-                }else{
+                }else {
                     $datos = array(
                         'id'=> $result['id_preregistro'],
                         'rol'=> $result['rol']

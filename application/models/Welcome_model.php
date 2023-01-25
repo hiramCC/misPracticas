@@ -37,6 +37,14 @@ class Welcome_model extends CI_Model {
     public function delete($id){
         $this->db->delete($this->table, array('id_preregistro' => $id));
     }
-    
+    // function validaremail($email) {
+    //     $query = $this->db->get_where($this->table, array('correo' => $email));
+        
+    //     if ($query->num_rows() > 0) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
 }

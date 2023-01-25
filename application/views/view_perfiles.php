@@ -1,7 +1,7 @@
 <div class="container">
-    
+    <h2>Tabla Usuarios</h2>
     <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Open Modal</button>
+    <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Usuarios</button>
     <table class="table table-hover" id="myTable">
         <thead>
             <tr>
@@ -31,6 +31,8 @@
                         <label for="perfil">Nombre del Perfil:</label>
                         <input type="text" class="form-control" id="perfil" name="perfil">
                     </div>
+                    <input type="hidden" name="id_perfil" id="id_perfil" >
+                    <input type="hidden" name="action" id="action" value="action" >
                     <button type="button" class="btn btn-success" id="save"> Guardar</button>
                 </form>
             </div>
@@ -42,6 +44,7 @@
 
     </div>
 </div>
+
 <script type='text/javascript'>
 $(document).ready(function() {
     //alert('Hola mundo')
@@ -83,7 +86,7 @@ $(document).ready(function() {
                 'excelHtml5'
             ], */
             "ajax": {
-                url: '<?php echo base_url('Perfiles/listar') ?>',
+                url: '<?php echo base_url('perfiles/listar') ?>',
                 type: 'POST'
             },
             /* "columnDefs": [{
@@ -93,5 +96,29 @@ $(document).ready(function() {
         });
 
     });
+    function updateData($valor) {
+        alert($valor)
+    }
+    $(document).on('click','.update', function(){
+        var idfront = $(this).attr("id");
+        $.ajax({
+            url: "<?php echo base_url('perfiles/actualizar') ?>",
+            method: 'POST',
+            data: {idback : idfront},
+            cache: false,
+            //contentType: false,
+            //processData: false,
+            dataType: 'json',
+            success: function(respuesta) {
+                // var data = JSON.parse(respuesta);
+                $('#myModal').modal('show');
+                //$("form")[0].reset();
+                //console.log(respuesta);
+                $('#perfil').val(respuesta.nombre_perfil);
+                $('#id_perfil').val(respuesta.id_perfil);
+            }
+        })
+    });
+
     
 </script>

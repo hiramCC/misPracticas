@@ -7,7 +7,6 @@ class registro extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		 
 		$this->load->model('registro_model'); //aqui cargamos nuetro modelo
 		// include 
 		
@@ -21,7 +20,6 @@ class registro extends CI_Controller {
 		$this->load->view('view_footer');
 		
 	}
-    
     public function registrar(){
 		if($this->input->post('rol')=='Administrador'){
 			$roles=1;
@@ -48,5 +46,4 @@ class registro extends CI_Controller {
 		}
 	}
 }
-
 }
