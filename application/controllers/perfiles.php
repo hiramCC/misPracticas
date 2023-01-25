@@ -1,9 +1,9 @@
 <?php
-    class perfiles extends CI_Controller{
+    class Perfiles extends CI_Controller{
 
-        public function construct(){
-            parent::construct();
-            $this->load->model('perfil_model');
+        public function __construct(){
+            parent::__construct();
+            $this->load->model('Perfil_model');
         } 
 
         public function index(){
@@ -22,19 +22,19 @@
 		 	'nombre_perfil' => trim($this->input->post('perfil'))
          );
 			
-				$result = $this->perfil_model->insert($datos);
+				$result = $this->Perfil_model->insert($datos);
 				if ($result == TRUE){
-					return json_encode("Registro exitoso");
+					echo json_encode("Registro exitoso");
 				}else{
-					return json_encode("No fue posible realizar el registro");
+					echo json_encode("No fue posible realizar el registro");
 		        }
 	        
         }
         public function listar()
-	{
-		$response = $this->perfil_model->readData();
+	    {
+		$response = $this->Perfil_model->readData();
 		echo json_encode($response);
-	}
+	    }
 
     }
 ?>

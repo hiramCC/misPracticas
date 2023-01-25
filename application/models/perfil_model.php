@@ -1,11 +1,13 @@
 <?php
 
-class perfil_model extends CI_Model{
+class Perfil_model extends CI_Model {
 
-    function __construct(){
+    function __construct() {
         parent::__construct();
+        #$this->load->database();
     }
-    private $table  = 'cat_perfiles' ;
+
+    private $table  = 'cat_perfiles';
     private $primary_key = 'id_perfil';
 
     public function insert($data)
@@ -13,6 +15,7 @@ class perfil_model extends CI_Model{
         $isOkey = $this->db->insert($this->table, $data);
         return ($isOkey == true) ? true : false;
     }
+
     public function readData()
     {
         $rstQuery = $this->db->get($this->table);
@@ -22,9 +25,9 @@ class perfil_model extends CI_Model{
     public function fetch($id)
     {
         $rstQuery = $this->db->get_where($this->table, 
-                                        array($this->primary_key => $id));
-        return $rstQuery->result_array();
-        
+                        array($this->primary_key => $id)
+                        );
+        return $rstQuery->row_array();
     }
 
     public function update($id, $data){
@@ -33,5 +36,5 @@ class perfil_model extends CI_Model{
         return ($isOkey == true) ? true : false;
     }
 
-    
-}    
+
+}
