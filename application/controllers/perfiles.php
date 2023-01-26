@@ -17,22 +17,44 @@ class perfiles extends CI_Controller
     
     public function registrar()
     {
+        //var_dump($_POST);
+        //print_r($_POST);
+        //die();
+        //exit();
 
-        $datos = array(
-			'nombre_perfil' => trim($this->input->post('perfil'))
-		);
+        //echo $this->input->post('perfil');
 
-		$response = $this->perfiles_model->insert($datos);
-		if ($response == TRUE) {
-			# code...
-            echo  json_encode("Regitro exitoso");
+        
+        if ($this->input->post('action') == 'editar') {
+            # code...
+            $datos = array(
+                'nombre_perfil' => trim($this->input->post('perfil'))
+            );
+            $id  = $this->input->post('id_perfil');
+            $response = $this->perfiles_model->update($id, $datos);
+            if ($response == TRUE) {
+                # code...
+                echo  json_encode("Actualizado correctamente");
+            } else {
+    
+                echo  json_encode("No fue posible realizar el resgistro, conacta a soporte");
+            }
 
-		} else {
+        }else{
+            $datos = array(
+                'nombre_perfil' => trim($this->input->post('perfil'))
+            );
+            $response = $this->perfiles_model->insert($datos);
+            if ($response == TRUE) {
+                # code...
+                echo  json_encode("Regitro exitoso");
+            } else {
+    
+                echo  json_encode("No fue posible realizar el resgistro, conacta a soporte");
+            }
+        }
 
-			echo  json_encode("No fue posible realizar el resgistro, conacta a soporte");
-		}
-
-
+        
     }
 
     public function listar()

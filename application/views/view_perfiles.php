@@ -32,7 +32,7 @@
                         <input type="text" class="form-control" id="perfil" name="perfil">
                     </div>
                     <input type="hidden" name="id_perfil" id="id_perfil" >
-                    <input type="hidden" name="action" id="action" value="action" >
+                    <input type="hidden" name="action" id="action" value="nuevo" >
                     <button type="button" class="btn btn-success" id="save"> Guardar</button>
                 </form>
             </div>
@@ -58,7 +58,7 @@ $(document).ready(function() {
         //alert($("form").serialize());
 
         $.ajax({
-            url: "<?php echo base_url('Perfiles/registrar') ?>",
+            url: "<?php echo base_url('perfiles/registrar') ?>",
             method: 'POST',
             data: $("form").serialize(),
             cache: false,
@@ -96,29 +96,47 @@ $(document).ready(function() {
         });
 
     });
-    function updateData($valor) {
-        alert($valor)
+    function updateData(valor) {
+        //alert(valor)
+        $.ajax({
+            url: "<?php echo base_url('perfiles/actualizar') ?>",
+            method: 'POST',
+            data: {idback : valor},
+            dataType: 'json',
+            success: function(respuesta) {
+                $('#myModal').modal('show');
+                $('#perfil').val(respuesta.nombre_perfil);
+                $('#id_perfil').val(respuesta.id_perfil);
+                $('#action').val('editar');
+                
+
+            }
+        })
     }
-    $(document).on('click','.update', function(){
+
+    $(document).on('click', '.update', function() {
+
         var idfront = $(this).attr("id");
+        //alert(id)
         $.ajax({
             url: "<?php echo base_url('perfiles/actualizar') ?>",
             method: 'POST',
             data: {idback : idfront},
-            cache: false,
-            //contentType: false,
-            //processData: false,
             dataType: 'json',
             success: function(respuesta) {
-                // var data = JSON.parse(respuesta);
+                //comprobamos la respuesta del back
+                //console.log(respuesta)
+                //en ocasiones es necesario parsear la respuesta 
+                //var data = JSON.parse(respuesta);
                 $('#myModal').modal('show');
-                //$("form")[0].reset();
-                //console.log(respuesta);
                 $('#perfil').val(respuesta.nombre_perfil);
                 $('#id_perfil').val(respuesta.id_perfil);
+                $('#action').val('editar');
+                
+                
+
             }
         })
     });
-
     
 </script>
