@@ -83,14 +83,22 @@ class perfiles extends CI_Controller
         $data = $this->perfiles_model->fetch($idback);
         echo json_encode($data);
     }
-    public function eliminar($idback){
-        $idback = $this->input->post('idback');
-		$data = $this->perfiles_model->delete($idback);
-        echo json_encode($data);
-		redirect('perfiles');
+    public function eliminar(){
+        $id = $this->input->post('idback');
+        if(empty($this->perfiles_model->join($id))){
+            $result = $this->perfiles_model->delete($id);
+            if ($result == TRUE) {
+                echo json_encode("no fue posible eliminarlo");
+            }else {
+                echo json_encode("Registro eliminado");
+            }	
+        }else{
+            echo json_encode("el perfil esta asociado");
+        }
 		
-		
+        
 	}
+    
 }
 
 ?>

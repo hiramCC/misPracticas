@@ -39,5 +39,9 @@ class perfiles_model extends CI_Model {
         $this->db->delete($this->table, array($this->primary_key => $id));
     }
 
+    public function join($id){
+        $isOkey = $this->db->get_where('preregistro',array('rol' => $id));
+        return $isOkey->result_array();
+    }
 
 }

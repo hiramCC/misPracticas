@@ -70,6 +70,7 @@ $(document).ready(function() {
                 $('#myModal').modal('hide');
                 $("form")[0].reset();
                 console.log(respuesta);
+                window.location.reload()
 
             }
         })
@@ -137,6 +138,7 @@ $(document).on('click', '.update', function() {
             $('#perfil').val(respuesta.nombre_perfil);
             $('#id_perfil').val(respuesta.id_perfil);
             $('#action').val('editar');
+            window.location.reload()
 
 
 
@@ -159,11 +161,12 @@ $(document).on('click', '.delete', function() {
             //console.log(respuesta)
             //en ocasiones es necesario parsear la respuesta 
             //var data = JSON.parse(respuesta);
-            $('#myModal').modal('show');
-            $('#perfil').val(respuesta.nombre_perfil);
-            $('#id_perfil').val(respuesta.id_perfil);
+           // $('#myModal').modal('show');
+            //$('#perfil').val(respuesta.nombre_perfil);
+            //$('#id_perfil').val(respuesta.id_perfil);
             //$('#action').val('editar');
-
+            alert(respuesta)
+            window.location.reload()
 
 
         }
