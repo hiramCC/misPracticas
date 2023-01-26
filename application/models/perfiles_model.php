@@ -35,6 +35,9 @@ class perfiles_model extends CI_Model {
         $isOkey = $this->db->update($this->table, $data);
         return ($isOkey == true) ? true : false;
     }
+    public function delete($id){
+        $this->db->delete($this->table, array($this->primary_key => $id));
+    }
 
 
 }

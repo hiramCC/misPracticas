@@ -31,8 +31,8 @@
                         <label for="perfil">Nombre del Perfil:</label>
                         <input type="text" class="form-control" id="perfil" name="perfil">
                     </div>
-                    <input type="hidden" name="id_perfil" id="id_perfil" >
-                    <input type="hidden" name="action" id="action" value="nuevo" >
+                    <input type="hidden" name="id_perfil" id="id_perfil">
+                    <input type="hidden" name="action" id="action" value="nuevo">
                     <button type="button" class="btn btn-success" id="save"> Guardar</button>
                 </form>
             </div>
@@ -77,66 +77,96 @@ $(document).ready(function() {
     });
 
     $('#myTable').DataTable({
-            /* "processing": true,
-            "serverSide": true,
-            "ordering": false,
-            "responsive": true,
-            dom: 'Bfrtip',
-            buttons: [
-                'excelHtml5'
-            ], */
-            "ajax": {
-                url: '<?php echo base_url('perfiles/listar') ?>',
-                type: 'POST'
-            },
-            /* "columnDefs": [{
-                "targets": [0],
-                "orderable": false,
-            }, ], */
-        });
-
+        /* "processing": true,
+        "serverSide": true,
+        "ordering": false,
+        "responsive": true,
+        dom: 'Bfrtip',
+        buttons: [
+            'excelHtml5'
+        ], */
+        "ajax": {
+            url: '<?php echo base_url('perfiles/listar') ?>',
+            type: 'POST'
+        },
+        /* "columnDefs": [{
+            "targets": [0],
+            "orderable": false,
+        }, ], */
     });
-    function updateData(valor) {
-        //alert(valor)
-        $.ajax({
-            url: "<?php echo base_url('perfiles/actualizar') ?>",
-            method: 'POST',
-            data: {idback : valor},
-            dataType: 'json',
-            success: function(respuesta) {
-                $('#myModal').modal('show');
-                $('#perfil').val(respuesta.nombre_perfil);
-                $('#id_perfil').val(respuesta.id_perfil);
-                $('#action').val('editar');
-                
 
-            }
-        })
-    }
+});
 
-    $(document).on('click', '.update', function() {
+function updateData(valor) {
+    //alert(valor)
+    $.ajax({
+        url: "<?php echo base_url('perfiles/actualizar') ?>",
+        method: 'POST',
+        data: {
+            idback: valor
+        },
+        dataType: 'json',
+        success: function(respuesta) {
+            $('#myModal').modal('show');
+            $('#perfil').val(respuesta.nombre_perfil);
+            $('#id_perfil').val(respuesta.id_perfil);
+            $('#action').val('editar');
 
-        var idfront = $(this).attr("id");
-        //alert(id)
-        $.ajax({
-            url: "<?php echo base_url('perfiles/actualizar') ?>",
-            method: 'POST',
-            data: {idback : idfront},
-            dataType: 'json',
-            success: function(respuesta) {
-                //comprobamos la respuesta del back
-                //console.log(respuesta)
-                //en ocasiones es necesario parsear la respuesta 
-                //var data = JSON.parse(respuesta);
-                $('#myModal').modal('show');
-                $('#perfil').val(respuesta.nombre_perfil);
-                $('#id_perfil').val(respuesta.id_perfil);
-                $('#action').val('editar');
-                
-                
 
-            }
-        })
-    });
-    
+        }
+    })
+}
+
+$(document).on('click', '.update', function() {
+
+    var idfront = $(this).attr("id");
+    //alert(id)
+    $.ajax({
+        url: "<?php echo base_url('perfiles/actualizar') ?>",
+        method: 'POST',
+        data: {
+            idback: idfront
+        },
+        dataType: 'json',
+        success: function(respuesta) {
+            //comprobamos la respuesta del back
+            //console.log(respuesta)
+            //en ocasiones es necesario parsear la respuesta 
+            //var data = JSON.parse(respuesta);
+            $('#myModal').modal('show');
+            $('#perfil').val(respuesta.nombre_perfil);
+            $('#id_perfil').val(respuesta.id_perfil);
+            $('#action').val('editar');
+
+
+
+        }
+    })
+});
+$(document).on('click', '.delete', function() {
+
+    var idfront = $(this).attr("id");
+    //alert(id)
+    $.ajax({
+        url: "<?php echo base_url('perfiles/eliminar') ?>",
+        method: 'POST',
+        data: {
+            idback: idfront
+        },
+        dataType: 'json',
+        success: function(respuesta) {
+            //comprobamos la respuesta del back
+            //console.log(respuesta)
+            //en ocasiones es necesario parsear la respuesta 
+            //var data = JSON.parse(respuesta);
+            $('#myModal').modal('show');
+            $('#perfil').val(respuesta.nombre_perfil);
+            $('#id_perfil').val(respuesta.id_perfil);
+            //$('#action').val('editar');
+
+
+
+        }
+    })
+});
 </script>

@@ -83,6 +83,14 @@ class perfiles extends CI_Controller
         $data = $this->perfiles_model->fetch($idback);
         echo json_encode($data);
     }
+    public function eliminar($idback){
+        $idback = $this->input->post('idback');
+		$data = $this->perfiles_model->delete($idback);
+        echo json_encode($data);
+		redirect('perfiles');
+		
+		
+	}
 }
 
 ?>
