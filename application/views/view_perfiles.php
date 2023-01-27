@@ -1,13 +1,22 @@
 <div class="container">
-    <h2>Tabla Usuarios</h2>
+    <h2>Perfiles</h2>
+    <p>Lista de todos los perfiles:</p>
     <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Usuarios</button>
+    <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Agregar</button>
+    <br><br>
     <table class="table table-hover" id="myTable">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Acciones</th>
+
+                <th>
+                    <center>ID</center>
+                </th>
+                <th>
+                    <center>Nombre</center>
+                </th>
+                <th>
+                    <center>Acciones</center>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -30,10 +39,9 @@
                     <div class="form-group">
                         <label for="perfil">Nombre del Perfil:</label>
                         <input type="text" class="form-control" id="perfil" name="perfil">
+                        <input type="hidden" class="form-control" id="id" name="id">
                     </div>
-                    <input type="hidden" name="id_perfil" id="id_perfil">
-                    <input type="hidden" name="action" id="action" value="nuevo">
-                    <button type="button" class="btn btn-success" id="save"> Guardar</button>
+                    <button type="button" class="btn btn-default" id="save"> Guardar</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -49,16 +57,13 @@
 $(document).ready(function() {
     //alert('Hola mundo')
     //console.log('Hola mindo desde una consola')
-
-
     $('#save').click(function(e) {
         // evitar lo que pasaría por default
         e.preventDefault();
-
-        //alert($("form").serialize());
+        // alert($("form").serialize());
 
         $.ajax({
-            url: "<?php echo base_url('perfiles/registrar') ?>",
+            url: "<?php echo base_url('Perfiles/registrar') ?>",
             method: 'POST',
             data: $("form").serialize(),
             cache: false,
@@ -69,7 +74,7 @@ $(document).ready(function() {
                 // var data = JSON.parse(respuesta);
                 $('#myModal').modal('hide');
                 $("form")[0].reset();
-                console.log(respuesta);
+                alert(respuesta);
                 window.location.reload()
 
             }
@@ -78,98 +83,50 @@ $(document).ready(function() {
     });
 
     $('#myTable').DataTable({
-        /* "processing": true,
-        "serverSide": true,
-        "ordering": false,
-        "responsive": true,
-        dom: 'Bfrtip',
-        buttons: [
-            'excelHtml5'
-        ], */
-        "ajax": {
-            url: '<?php echo base_url('perfiles/listar') ?>',
+        ajax: {
+            url: '<?php echo base_url('Perfiles/listar') ?>',
             type: 'POST'
+
         },
-        /* "columnDefs": [{
-            "targets": [0],
-            "orderable": false,
-        }, ], */
     });
 
-});
+    $(document).on('click', '.update', function() {
+        var idfront=$(this).attr("id")
+        $.ajax({
+            url: "<?php echo base_url('Perfiles/actualizar') ?>",
+            method: 'POST',
+            data: {idback: idfront},
+            cache: false,
+            //contentType: false,
+            //processData: false,
+            dataType:  'json',
+            success: function(respuesta) {
+                $('#myModal').modal('show');
+                //comporbacion de la respueta del back
+                $('#perfil').val(respuesta.Nombre);
+                $('#id').val(respuesta.id);
+                //window.location.reload()
+            }
+        })
 
-function updateData(valor) {
-    //alert(valor)
-    $.ajax({
-        url: "<?php echo base_url('perfiles/actualizar') ?>",
-        method: 'POST',
-        data: {
-            idback: valor
-        },
-        dataType: 'json',
-        success: function(respuesta) {
-            $('#myModal').modal('show');
-            $('#perfil').val(respuesta.nombre_perfil);
-            $('#id_perfil').val(respuesta.id_perfil);
-            $('#action').val('editar');
+    });
+    $(document).on('click', '.delete', function() {
+        var idfront=$(this).attr("id")
+        $.ajax({
+            url: "<?php echo base_url('Perfiles/delete') ?>",
+            method: 'POST',
+            data: {idback: idfront},
+            cache: false,
+            //contentType: false,
+            //processData: false,
+            dataType:  'json',
+            success: function(respuesta) {
+                alert(respuesta)
+                window.location.reload()
+            }
+        })
 
+    });
 
-        }
-    })
-}
-
-$(document).on('click', '.update', function() {
-
-    var idfront = $(this).attr("id");
-    //alert(id)
-    $.ajax({
-        url: "<?php echo base_url('perfiles/actualizar') ?>",
-        method: 'POST',
-        data: {
-            idback: idfront
-        },
-        dataType: 'json',
-        success: function(respuesta) {
-            //comprobamos la respuesta del back
-            //console.log(respuesta)
-            //en ocasiones es necesario parsear la respuesta 
-            //var data = JSON.parse(respuesta);
-            $('#myModal').modal('show');
-            $('#perfil').val(respuesta.nombre_perfil);
-            $('#id_perfil').val(respuesta.id_perfil);
-            $('#action').val('editar');
-            window.location.reload()
-
-
-
-        }
-    })
-});
-$(document).on('click', '.delete', function() {
-
-    var idfront = $(this).attr("id");
-    //alert(id)
-    $.ajax({
-        url: "<?php echo base_url('perfiles/eliminar') ?>",
-        method: 'POST',
-        data: {
-            idback: idfront
-        },
-        dataType: 'json',
-        success: function(respuesta) {
-            //comprobamos la respuesta del back
-            //console.log(respuesta)
-            //en ocasiones es necesario parsear la respuesta 
-            //var data = JSON.parse(respuesta);
-           // $('#myModal').modal('show');
-            //$('#perfil').val(respuesta.nombre_perfil);
-            //$('#id_perfil').val(respuesta.id_perfil);
-            //$('#action').val('editar');
-            alert(respuesta)
-            window.location.reload()
-
-
-        }
-    })
 });
 </script>

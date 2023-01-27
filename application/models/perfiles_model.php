@@ -1,21 +1,19 @@
 <?php
 
-class perfiles_model extends CI_Model {
+class Perfiles_model extends CI_Model {
+
 
     function __construct() {
         parent::__construct();
         #$this->load->database();
+        // if(!$this->session->userdata('nombre')){redirect(auth);}
     }
-
-    private $table  = 'cat_perfiles';
-    private $primary_key = 'id_perfil';
-
+    private $table  = 'roles' ;
+    private $primary_key  = 'id' ;
     public function insert($data)
     {
-        $isOkey = $this->db->insert($this->table, $data);
-        return ($isOkey == true) ? true : false;
+        return ($this->db->insert($this->table, $data) == true) ? true : false;
     }
-
     public function readData()
     {
         $rstQuery = $this->db->get($this->table);
@@ -36,11 +34,13 @@ class perfiles_model extends CI_Model {
         return ($isOkey == true) ? true : false;
     }
     public function delete($id){
-        $this->db->delete($this->table, array($this->primary_key => $id));
+        $this->db->where('id', $id);
+        $isOkey = $this->db->delete($this->table);
+        
+       return ($isOkey == true) ? true : false;
     }
-
-    public function join($id){
-        $isOkey = $this->db->get_where('preregistro',array('rol' => $id));
+    public function verify($id){
+        $isOkey = $this->db->get_where('preregistro',array('tipo' => $id));
         return $isOkey->result_array();
     }
 
