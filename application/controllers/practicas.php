@@ -13,7 +13,7 @@ class practicas extends CI_Controller{
     }
     public function registrar(){
 
-        /* 
+         /* 
         1.- Corresponde al campo en el front
         2.- Dato que se insertara como mensaje de error
         3.- Regla y/o reglas a validar
@@ -33,8 +33,8 @@ class practicas extends CI_Controller{
                 'rules' => 'required|trim|max_length[30]|regex_match[/^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ ,.]*$/u]'
             ),
             array(
-                'field' => 'email', 'label' => 'Dirección de correo',
-                'rules' => 'required|trim|valid_email|is_unique[preregistro.correo]'
+                'field' => 'email', 'label' => 'Email',
+                'rules' => 'required|trim|valid_email|is_unique[preregistro.email]'
             ),
             array(
                 'field' => 'pwd', 'label' => 'Contraseña',
@@ -47,7 +47,7 @@ class practicas extends CI_Controller{
         );
         //$this->form_validation->set_rules('nombre', 'nombre', 'required|trim');
         $this->form_validation->set_rules($config);
-        $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+        $this->form_validation->set_error_delimiters('<p class="text-danger" id="message">', '</p>');
         if ($this->form_validation->run() == FALSE) {
 
             $messageData['success'] = false;
@@ -59,21 +59,12 @@ class practicas extends CI_Controller{
                 'nombre' => trim($this->input->post('nombre')),
                 'apaterno' => $this->input->post('apaterno'),
                 'amaterno' => $this->input->post('amaterno'),
-                'correo' => $this->input->post('email'),
-                'contrasenia' => $this->input->post('pwd')
+                'email' => $this->input->post('email'),
+                'password' => $this->input->post('pwd')
             );
-            exit();
-            $result = $this->registro_model->insert($datos);
-            if ($result == TRUE) {
-                $messageData["success"] = true;
-                $messageData["messages"]='<div class="alert alert-success alert-dismissible"></div>';
-            } else {
-                $messageData["success"] = true;
-                $messageData["messages"]='<div class="alert alert-warning alert-dismissible"></div>';
-            
-            }
+                $messageData['success'] = true;
+                $messageData['messages'] = "<div class=\"alert alert-success\"><strong>Registro exitoso!</strong></div>";
         }
-
         echo json_encode($messageData);
     }
 }
