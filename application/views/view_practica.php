@@ -54,10 +54,10 @@ function operaciones() {
     y = parseFloat(document.getElementById("numero2").value);
     
     if($("#numero1").empty() || $("#numero2").empty() ){
-        document.getElementById("sumando").innerHTML = '<div class="alert alert-danger"><strong> Metele datos papi </strong></div>';
-        let reset = setTimeout(clear, 3000);
+        //document.getElementById("sumando").innerHTML = '<div class="alert alert-danger"><strong> Metele datos papi </strong></div>';
+        //let reset = setTimeout(clear, 3000);
     if ($('#sumar').is(':checked')) {
-        if((isset($("#numero1")) || isset($("#numero1"))) && ($("#numero1").empty() || $("#numero2").empty() )){
+        if(!$('#numero1').val() || !$('#numero2').val()){
             document.getElementById("sumando").innerHTML = '<div class="alert alert-danger"><strong> Metele datos papi </strong></div>';
             let reset = setTimeout(clear, 3000);
         }else{
@@ -68,20 +68,38 @@ function operaciones() {
         }
         
     } else if($('#restar').is(':checked')){
+        if(!$('#numero1').val() || !$('#numero2').val()){
+            document.getElementById("sumando").innerHTML = '<div class="alert alert-danger"><strong> Metele datos papi </strong></div>';
+            let reset = setTimeout(clear, 3000);
+        }else{
         resta = parseFloat(x) - parseFloat(y);
         document.getElementById("sumando").innerHTML = '<div class="alert alert-success"><strong> El resultado es :'+resta+'</strong></div>';
         let reset = setTimeout(clear, 3000);
         //alert(resta);
+        }
     } else if($('#multiplicar').is(':checked')){
+        if(!$('#numero1').val() || !$('#numero2').val()){
+            document.getElementById("sumando").innerHTML = '<div class="alert alert-danger"><strong> Metele datos papi </strong></div>';
+            let reset = setTimeout(clear, 3000);
+        }else{
         multiplica = parseFloat(x) * parseFloat(y);
         document.getElementById("sumando").innerHTML = '<div class="alert alert-success"><strong> El resultado es :'+multiplica+ '</strong></div>';
         let reset = setTimeout(clear, 3000);
         //alert(multiplica);
+        }
     } else if($('#dividir').is(':checked')){
+        if(!$('#numero1').val() || !$('#numero2').val()){
+            document.getElementById("sumando").innerHTML = '<div class="alert alert-danger"><strong> Metele datos papi </strong></div>';
+            let reset = setTimeout(clear, 3000);
+        }else{
         divide = parseFloat(x) / parseFloat(y);
         document.getElementById("sumando").innerHTML = '<div class="alert alert-success"><strong> El resultado es :'+divide+ '</strong></div>';
         let reset = setTimeout(clear, 3000);
         //alert(divide);
+        }
+    }else{
+        document.getElementById("sumando").innerHTML = '<div class="alert alert-warning"><strong> Selecciona que operacion quieres realizar </strong></div>';
+            let reset = setTimeout(clear, 4000);
     }
 }
     document.getElementById("myForm").reset();
